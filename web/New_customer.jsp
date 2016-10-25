@@ -49,7 +49,7 @@ and open the template in the editor.
             <input type="text" name="state"><br>
 
             <label>Zip Code</label>
-            <input type="number" name="zip"><br>
+            <input type="number" name="zipCode"><br>
 
             <label>Email Address</label>
             <input type="email" name="email"><br>
