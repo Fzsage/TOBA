@@ -6,7 +6,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,31 +21,40 @@ public class NewCustomerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
+
         String url = "/Success.html";
 
         String action = request.getParameter("action");
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        String phone = request.getParameter("phone");
-        String address = request.getParameter("address");
-        String city = request.getParameter("city");
-        String state = request.getParameter("state");
-        String zipCode = request.getParameter("zipCode");
-        String email = request.getParameter("email");
-        String message = "";
-
+         if (action == null){            
+             action = "join";
+         }
         if (action.equals("join")) {
-            if (firstName == null || lastName == null || phone == null
-                    || address == null || city == null || state == null
-                    || zipCode == null || email == null) {
+            String firstName = request.getParameter("firstName");
+            String lastName = request.getParameter("lastName");
+            String phone = request.getParameter("phone");
+            String address = request.getParameter("address");
+            String city = request.getParameter("city");
+            String state = request.getParameter("state");
+            String zipCode = request.getParameter("zipCode");
+            String email = request.getParameter("email");
+            String message;
+
+            if (firstName == null || firstName.isEmpty()
+                    || lastName == null || lastName.isEmpty()
+                    || phone == null || phone.isEmpty()
+                    || address == null || address.isEmpty()
+                    || city == null || city.isEmpty()
+                    || state == null || state.isEmpty()
+                    || zipCode == null || zipCode.isEmpty()
+                    || email == null || email.isEmpty()) {
+
                 message = "Please fill out all form fields.";
                 url = "/New_customer.jsp";
-                request.setAttribute("message", message);
             } else {
-
+                message = "";
                 url = "/Success.html";
             }
+            request.setAttribute("message", message);
         }
 
         getServletContext()
