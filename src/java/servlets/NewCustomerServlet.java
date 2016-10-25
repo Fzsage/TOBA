@@ -34,6 +34,20 @@ public class NewCustomerServlet extends HttpServlet {
         String state = request.getParameter("state");
         String zipCode = request.getParameter("zipCode");
         String email = request.getParameter("email");
+        String message = "";
+
+        if (action.equals("join")) {
+            if (firstName == null || lastName == null || phone == null
+                    || address == null || city == null || state == null
+                    || zipCode == null || email == null) {
+                message = "Please fill out all form fields.";
+                url = "/New_customer.jsp";
+                request.setAttribute("message", message);
+            } else {
+
+                url = "/Success.html";
+            }
+        }
 
         getServletContext()
                 .getRequestDispatcher(url)

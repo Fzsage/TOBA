@@ -1,3 +1,10 @@
+<%-- 
+    Document   : New_customer
+    Created on : Oct 24, 2016, 7:55:58 PM
+    Author     : Sage
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -52,6 +59,6 @@ and open the template in the editor.
             <label>&nbsp;</label>
             <input type="submit" value="Register" id="submit">
         </form>  
-        
+        <p><i>${message}</i></p>
     </body>
 </html>
