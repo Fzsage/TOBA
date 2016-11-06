@@ -3,16 +3,20 @@
     <servlet>
         <description>Servlet for allowing a user to login</description>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>servlets.LoginServlet</servlet-class>
+        <servlet-class>businessRules.LoginServlet</servlet-class>
     </servlet>
     <servlet>
         <description>Allow a new customer to register</description>
         <servlet-name>NewCustomerServlet</servlet-name>
-        <servlet-class>servlets.NewCustomerServlet</servlet-class>
+        <servlet-class>businessRules.NewCustomerServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>TransactionServlet</servlet-name>
-        <servlet-class>servlets.TransactionServlet</servlet-class>
+        <servlet-class>businessRules.TransactionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResetPasswordServlet</servlet-name>
+        <servlet-class>businessRules.ResetPasswordServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -25,6 +29,10 @@
     <servlet-mapping>
         <servlet-name>TransactionServlet</servlet-name>
         <url-pattern>/TransactionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResetPasswordServlet</servlet-name>
+        <url-pattern>/ResetPasswordServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package businessRules;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -21,8 +22,8 @@ public class NewCustomerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-
-        String url = "/Success.html";
+        HttpSession session = request.getSession();
+        String url = "/Success.jsp";
 
         String action = request.getParameter("action");
          if (action == null){            
@@ -51,8 +52,11 @@ public class NewCustomerServlet extends HttpServlet {
                 message = "Please fill out all form fields.";
                 url = "/New_customer.jsp";
             } else {
+                User user = new User(firstName, lastName, phone, address, city, state, zipCode, email, lastName + zipCode, "welcome1");
+                request.setAttribute("user", user);
+                session.setAttribute("user", user);
                 message = "";
-                url = "/Success.html";
+                url = "/Success.jsp";
             }
             request.setAttribute("message", message);
         }

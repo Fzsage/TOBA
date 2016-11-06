@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package businessRules;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,7 +23,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-        String url = "/index.html";
+        String url = "/index.jsp";
 
         String action = request.getParameter("action");
         String userName = request.getParameter("userName");
@@ -32,9 +32,9 @@ public class LoginServlet extends HttpServlet {
         if (action.equals("login")) {
 
             if ("jsmith@toba.com".equals(userName) && "letmein".equals(password)) {
-                url = "/Account_activity.html";
+                url = "/Account_activity.jsp";
             } else {
-                url = "/Login_failure.html";
+                url = "/Login_failure.jsp";
 
             }
 
