@@ -53,7 +53,6 @@ public class NewCustomerServlet extends HttpServlet {
                 url = "/New_customer.jsp";
             } else {
                 User user = new User(firstName, lastName, phone, address, city, state, zipCode, email, lastName + zipCode, "welcome1");
-                request.setAttribute("user", user);
                 session.setAttribute("user", user);
                 message = "";
                 url = "/Success.jsp";

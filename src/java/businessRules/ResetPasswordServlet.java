@@ -28,19 +28,13 @@ public class ResetPasswordServlet extends HttpServlet {
         if (action.equals("reset")) {
 
             String password = request.getParameter("password");
-            String newPassword = request.getParameter("newPassword");
             String message;
 
-            if (password.equals(user.getPassword())) {
-                user.setPassword(newPassword);
-                message = "";
-                url = "/Account_activity.jsp";
-                request.setAttribute("user", user);
-                session.setAttribute("user", user);
-            } else {
-                message = "Incorrect password. Please enter the correct password.";
-                url = "/password_reset.jsp";
-            }
+            user.setPassword(password);
+            message = "";
+            url = "/Account_activity.jsp";
+            session.setAttribute("user", user);
+
             request.setAttribute("message", message);
         }
 
