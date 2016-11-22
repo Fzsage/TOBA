@@ -5,6 +5,8 @@
  */
 package businessRules;
 
+import dbAccess.AccountDB;
+import dbAccess.UserDB;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -51,11 +53,19 @@ public class NewCustomerServlet extends HttpServlet {
 
                 message = "Please fill out all form fields.";
                 url = "/New_customer.jsp";
-            } else {
+            
+            } 
+            
+            else {
                 User user = new User(firstName, lastName, phone, address, city, state, zipCode, email, lastName + zipCode, "welcome1");
                 session.setAttribute("user", user);
                 message = "";
                 url = "/Success.jsp";
+                UserDB.insert(user);
+                Account checking = new Account("CHECKING", 0.00, user);
+                Account savings = new Account("SAVINGS", 25.00, user);
+                AccountDB.insert(checking);
+                AccountDB.insert(savings);
             }
             request.setAttribute("message", message);
         }

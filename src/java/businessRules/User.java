@@ -2,12 +2,19 @@
 // New_customer registration form
 package businessRules;
 
-
+import dbAccess.AccountDB;
 import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
+public class User implements Serializable {
 
-public class User implements Serializable{
-    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long userID;
     private String firstName;
     private String lastName;
     private String phone;
@@ -18,7 +25,7 @@ public class User implements Serializable{
     private String email;
     private String userName;
     private String password;
-    
+
     public User() {
         firstName = "";
         lastName = "";
@@ -45,6 +52,13 @@ public class User implements Serializable{
         this.password = password;
     }
 
+    public Long getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Long userID) {
+        this.userID = userID;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -125,6 +139,15 @@ public class User implements Serializable{
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
+    public double getCheckingBalance(){
+        Account checking = AccountDB.selectAccount(this, "CHECKING");
+        return checking.getStartingBal();
+    }
+
+    public double getSavingsBalance(){
+        Account savings = AccountDB.selectAccount(this, "SAVINGS");
+        return savings.getStartingBal();
+    }
     
 }

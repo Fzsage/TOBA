@@ -18,4 +18,6 @@
 
 <h2>Customer Account Information</h2>
 
+<h3>Transactions</h3>
+
 <%@ include file="/includes/footer.jsp" %>

@@ -1,5 +1,6 @@
 package businessRules;
 
+import dbAccess.UserDB;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -36,6 +37,7 @@ public class ResetPasswordServlet extends HttpServlet {
             session.setAttribute("user", user);
 
             request.setAttribute("message", message);
+            UserDB.update(user);
         }
 
         getServletContext()
