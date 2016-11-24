@@ -140,14 +140,18 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public double getCheckingBalance(){
+    public double getCheckingBal(){
         Account checking = AccountDB.selectAccount(this, "CHECKING");
-        return checking.getStartingBal();
+        if (checking != null) 
+            return checking.getStartingBal();
+        return 0.00;
     }
 
-    public double getSavingsBalance(){
+    public double getSavingsBal(){
         Account savings = AccountDB.selectAccount(this, "SAVINGS");
-        return savings.getStartingBal();
+        if (savings != null) 
+            return savings.getStartingBal();
+        return 0.00;
     }
     
 }

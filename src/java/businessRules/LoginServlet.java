@@ -5,6 +5,8 @@
  */
 package businessRules;
 
+
+import dbAccess.UserDB;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,22 +25,25 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html");
         String url = "/index.jsp";
-
-        String action = request.getParameter("action");
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-
+        String action = request.getParameter("action");
+        
         if (action.equals("login")) {
             String password = request.getParameter("password");
             String userName = request.getParameter("userName");
-            if (password.equals(user.getPassword()) && userName.equals(user.getUserName())) {
-                url = "/Account_activity.jsp";
-            } else {
-                url = "/Login_failure.jsp";
-
+            if (UserDB.userExists(userName)) {
+                User user = UserDB.selectUser(userName);
+                session.setAttribute("user", user);
+                if (password.equals(user.getPassword()) && userName.equals(user.getUserName())) {
+                    url = "/Account_activity.jsp";
+                    
+                } else {
+                    url = "/Login_failure.jsp";
+                    session.invalidate();
+                }
             }
-
         }
+
         getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request, response);

@@ -6,25 +6,32 @@
 package businessRules;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author Sage
  */
 @Entity
-public class Account implements Serializable{
-     @Id
-     /* @GeneratedValue(strategy = GenerationType.AUTO)
-     private Long accountID; */
-     private String accountType;
-     private double startingBal;
-     @ManyToOne
-     private User accountOwner;
+public class Account implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long accountID;
+    private String accountType;
+    private double startingBal;
+    @ManyToOne
+    private User accountOwner;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Trans> transactions;
 
     public Account() {
     }
@@ -34,13 +41,21 @@ public class Account implements Serializable{
         this.startingBal = startingBal;
         this.accountOwner = accountOwner;
     }
-
-    public void Credit (double amount){
-        this.startingBal +=  amount;
-    }
     
-    public void Debit (double amount){
+    public void addTransaction(Trans trans){
+        transactions.add(trans);
+    }  
+    
+    public void Credit(double amount) {
+        this.startingBal += amount;
+    }
+
+    public void Debit(double amount) {
         this.startingBal -= amount;
+    }
+
+    public Long getAccountID() {
+        return accountID;
     }
 
     public String getAccountType() {
@@ -63,13 +78,15 @@ public class Account implements Serializable{
         this.startingBal = startingBal;
     }
 
+    public List<Trans> getTransactions() {
+        return transactions;
+    }
+
+    
+ 
     @Override
     public String toString() {
         return "Account{" + "accountType=" + accountType + ", startingBal=" + startingBal + ", accountOwner=" + accountOwner + '}';
     }
 
-      
-
 }
-
-

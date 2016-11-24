@@ -17,10 +17,11 @@ import javax.persistence.TypedQuery;
  * @author Sage
  */
 public class AccountDB {
+
     public static void insert(Account account) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        trans.begin();        
+        trans.begin();
         try {
             em.persist(account);
             trans.commit();
@@ -35,7 +36,7 @@ public class AccountDB {
     public static void update(Account account) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        trans.begin();       
+        trans.begin();
         try {
             em.merge(account);
             trans.commit();
@@ -46,22 +47,22 @@ public class AccountDB {
             em.close();
         }
     }
-    
-    public static Account selectAccount(User user, String accountType) {
+
+    public static Account selectAccount(User user, String account) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        String qString = "SELECT a FROM Account a " +
-                "WHERE a.AccountOwner = :user";
+        String qString = "SELECT a FROM Account a "
+                + "WHERE a.accountOwner = :user AND a.accountType= :ACCOUNT";
         TypedQuery<Account> q = em.createQuery(qString, Account.class);
         q.setParameter("user", user);
+        q.setParameter("ACCOUNT", account);
         try {
-            Account account = q.getSingleResult();
-            return account;
+            Account a = q.getSingleResult();
+            return a;
         } catch (NoResultException e) {
             return null;
         } finally {
             em.close();
         }
     }
-
 
 }
